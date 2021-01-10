@@ -1,43 +1,72 @@
-function getValues(obj) {
-	var arr = [];
-	for (key in obj) {
-		arr.push(obj[key])
+// Вам нужно создать список задач (объект), который умеет:
+
+// добавлять новые задачи. У каждой задачи есть статус, текст и уникальный id.
+// удалять задачу
+// редактировать задачу
+// изменять статус заметки на "выполненно"
+
+
+// Вам нужно оформить это, как объект с методами, которые нельзя удалять и редактировать + сам объект
+// не должен быть расширяем.
+
+const toDo = {
+	_toDoList: []
+}
+
+Object.defineProperties(toDo, {
+
+	'toDoList': {
+		get: function() {
+			return this._toDoList;
+		},
+
+		set: function(value) {
+			this._toDoList = value;
+		}
+	},
+
+	'add': {
+		value: function(taskName) {
+				toDo.toDoList.push({
+					task: taskName,
+					id: Date.now(),
+					complite: false
+				})
+		}
+	},
+
+	'delete': {
+		value: function(taskName) {
+			for (let i = 0; i < toDo.toDoList.length; i++) {
+				if (toDo.toDoList[i].task === taskName) {
+					toDo.toDoList.splice(i, 1)
+				}
+			}
+		}
+	},
+
+
+	'edit': {
+		value: function(taskName, newTaskName) {
+			for (let i = 0; i < toDo.toDoList.length; i++) {
+				if (toDo.toDoList[i].task === taskName) {
+					toDo.toDoList[i].task = newTaskName
+				}
+			}
+		}
+	},
+
+
+	'done': {
+		value: function(taskName) {
+			for (let i = 0; i < toDo.toDoList.length; i++) {
+				if (toDo.toDoList[i].task === taskName) {
+					toDo.toDoList[i].complite = !toDo.toDoList[i].complite
+				}
+			}
+		}
 	}
-	return arr;
-}
 
-var testObj = {
-	name: 'Sasha',
-	lastName: 'Cherniavsky',
-	gender: 'male',
-	address: 'Odessa'
-}
+});
 
-console.log(getValues(testObj));
-
-
-/////////////////////////////////////
-
-function getKeys(obj) {
-	var arr = [];
-	for (key in obj) {
-		arr.push(key)
-	}
-	return arr;
-}
-
-console.log(getKeys(testObj));
-
-
-////////////////////////////////////
-
-function getEntries(obj) {
-	var arr = []
-	for (key in obj) {
-		arr.push([key, obj[key]])
-	}
-
-	return arr;
-}
-
-console.log(getEntries(testObj));
+Object.freeze(toDo);
