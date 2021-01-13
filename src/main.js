@@ -33,15 +33,14 @@ Object.defineProperties(toDo, {
 				newError(taskName)
 
 				toDoList.push({
-				task: taskName,
-				id: Date.now(),
-				complete: false
+					task: taskName,
+					id: Date.now(),
+					complete: false
 			})
 		}
 	},
 
 	'delete': {
-		
 		value: function(taskName, isSure = false) {
 			const { toDoList } = this
 			if (isSure)
