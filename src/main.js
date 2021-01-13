@@ -20,13 +20,19 @@ Object.defineProperties(toDo, {
 		},
 	},
 
+	'newError': {
+		value: function(value) {
+			throw `Error. You already had "${value}" note`
+		}
+	},
+
 	'add': {
 		value: function(taskName) {
-			
-			if (this.toDoList.some(note => note.task === taskName))
-				throw `Error. You already had "${taskName}" note`
+			const { toDoList, newError } = this
+			if (toDoList.some(note => note.task === taskName))
+				newError(taskName)
 
-			toDo.toDoList.push({
+				toDoList.push({
 				task: taskName,
 				id: Date.now(),
 				complete: false
@@ -35,41 +41,45 @@ Object.defineProperties(toDo, {
 	},
 
 	'delete': {
+		
 		value: function(taskName, isSure = false) {
+			const { toDoList } = this
 			if (isSure)
-				this.toDoList.splice(this.getIndex(taskName), 1)
+				toDoList.splice(this.getIndex(taskName), 1)
 		}
 	},
 
 	'edit': {
 		value: function(taskName, newTaskName, isSure = false) {
-			
-				if (this.toDoList.some(note => note.task === newTaskName))
-					throw `Error. You already had "${newTaskName}" note`
+				const { toDoList, newError } = this
+				if (toDoList.some(note => note.task === newTaskName))
+					newError(newTaskName)
 				if (isSure) 
-					this.toDoList[this.getIndex(taskName)].task = newTaskName
+					toDoList[this.getIndex(taskName)].task = newTaskName
 			
 		}
 	},
 
 	'done': {
 		value: function(taskName) {
-			this.toDoList[this.getIndex(taskName)].complete = !this.toDoList[this.getIndex(taskName)].complete
+			const { toDoList } = this
+			toDoList[this.getIndex(taskName)].complete = !toDoList[this.getIndex(taskName)].complete
 		}
 	},
 
 	'status': {
 		value: function() {
+			const { toDoList } = this
 			let completeCount = 0;
-			this.toDoList.forEach((value) => {
+			toDoList.forEach((value) => {
 				if (value.complete) completeCount++
 			})
 
 			return (
 				`
-					Всего задач: ${this.toDoList.length},
+					Всего задач: ${toDoList.length},
 					Выполнено задач: ${completeCount}
-					Осталось выполнить задач: ${this.toDoList.length - completeCount}
+					Осталось выполнить задач: ${toDoList.length - completeCount}
 				`
 			)
 		}
