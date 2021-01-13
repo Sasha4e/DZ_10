@@ -50,12 +50,11 @@ Object.defineProperties(toDo, {
 
 	'edit': {
 		value: function(taskName, newTaskName, isSure = false) {
-				const { toDoList, newError } = this
-				if (toDoList.some(note => note.task === newTaskName))
-					newError(newTaskName)
-				if (isSure) 
-					toDoList[this.getIndex(taskName)].task = newTaskName
-			
+			const { toDoList, newError } = this
+			if (toDoList.some(note => note.task === newTaskName))
+				newError(newTaskName)
+			if (isSure) 
+				toDoList[this.getIndex(taskName)].task = newTaskName
 		}
 	},
 
@@ -74,13 +73,11 @@ Object.defineProperties(toDo, {
 				if (value.complete) completeCount++
 			})
 
-			return (
-				`
-					Всего задач: ${toDoList.length},
-					Выполнено задач: ${completeCount}
-					Осталось выполнить задач: ${toDoList.length - completeCount}
-				`
-			)
+			return (`
+				Всего задач: ${toDoList.length},
+				Выполнено задач: ${completeCount}
+				Осталось выполнить задач: ${toDoList.length - completeCount}
+			`)
 		}
 	}
 
