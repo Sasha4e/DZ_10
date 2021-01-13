@@ -60,7 +60,7 @@ Object.defineProperties(toDo, {
 
 	'status': {
 		value: function() {
-			completeCount = 0;
+			let completeCount = 0;
 			this.toDoList.forEach((value) => {
 				if (value.complete) completeCount++
 			})
@@ -73,7 +73,7 @@ Object.defineProperties(toDo, {
 				`
 			)
 		}
-}
+	}
 
 });
 
