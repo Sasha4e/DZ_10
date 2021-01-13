@@ -36,7 +36,7 @@ Object.defineProperties(toDo, {
 					task: taskName,
 					id: Date.now(),
 					complete: false
-			})
+				})
 		}
 	},
 
