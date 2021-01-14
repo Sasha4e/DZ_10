@@ -28,7 +28,6 @@ Object.defineProperties(toDo, {
 			}
 			return true
 		}
-		
 	},
 
 	'newError': {
