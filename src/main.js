@@ -16,8 +16,19 @@ Object.defineProperties(toDo, {
 
 	'getIndex': {
 		value: function(value) {
-			return this.toDoList.findIndex(note => note.task === value)
+			const { toDoList } = this
+			return toDoList.findIndex(note => note.task === value)
 		},
+	},
+
+	'isUnique': {
+		value: function(value) {
+			if (this.toDoList.some(note => note.task === value)) {
+				return false
+			}
+			return true
+		}
+		
 	},
 
 	'newError': {
@@ -28,8 +39,8 @@ Object.defineProperties(toDo, {
 
 	'add': {
 		value: function(taskName) {
-			const { toDoList, newError } = this
-			if (toDoList.some(note => note.task === taskName))
+			const { newError, toDoList } = this
+			if (!this.isUnique(taskName))
 				newError(taskName)
 
 				toDoList.push({
@@ -86,6 +97,7 @@ Object.defineProperties(toDo, {
 Object.freeze(toDo);
 
 toDo.add("hello world");
+toDo.add("hello world1");
 toDo.add("hello world1");
 toDo.add("hello world2");
 toDo.add("hello world3");
