@@ -62,7 +62,7 @@ Object.defineProperties(toDo, {
 	'edit': {
 		value: function(taskName, newTaskName, isSure = false) {
 			const { toDoList, newError } = this
-			if (toDoList.some(note => note.task === newTaskName))
+			if (!this.isUnique(newTaskName))
 				newError(newTaskName)
 			if (isSure) 
 				toDoList[this.getIndex(taskName)].task = newTaskName
@@ -97,7 +97,6 @@ Object.defineProperties(toDo, {
 Object.freeze(toDo);
 
 toDo.add("hello world");
-toDo.add("hello world1");
 toDo.add("hello world1");
 toDo.add("hello world2");
 toDo.add("hello world3");
