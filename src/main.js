@@ -1,19 +1,20 @@
-function myBind(cb, ...arg) {
+function myBind(cb, ...args) {
 	return function() {
-		return cb.call(...arg)
+		return cb.call(...args)
 	}
 }
 
 
-var user = {
+const user = {
 	name: "vasya",
 	sayhello() {
-		console.log(`Hello from ${this.name}`);
+		console.log(`Hello from ${this.name} ${this.lastName}`);
 	}
 };
 
 
-function func() {
+function func(lastName) {
+	this.lastName = lastName,
 	console.log(this.name);
 	this.sayhello();
 }
@@ -24,3 +25,6 @@ const test = myBind(func, user);
 test(); 
 //vasya
 // Hello from vasya
+
+const test1 = func.bind(user, "Ivanov");
+test1(); 
