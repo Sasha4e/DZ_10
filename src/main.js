@@ -23,3 +23,5 @@ function func(lastName, middleName) {
 
 const test = myBind(func, user, "Ivanov", "Olegovich");
 test(); 
+
+//Hello from Ivanov Vasiliy Olegovich
