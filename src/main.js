@@ -4,27 +4,22 @@ function myBind(cb, ...args) {
 	}
 }
 
+//TEST:
 
 const user = {
-	name: "vasya",
+	name: "Vasiliy",
 	sayhello() {
-		console.log(`Hello from ${this.name} ${this.lastName}`);
+		console.log(`Hello from ${this.lastName} ${this.name} ${this.middleName}`);
 	}
 };
 
 
-function func(lastName) {
+function func(lastName, middleName) {
+	this.middleName = middleName,
 	this.lastName = lastName,
-	console.log(this.name);
 	this.sayhello();
 }
 
 
-const test = myBind(func, user);
-
+const test = myBind(func, user, "Ivanov", "Olegovich");
 test(); 
-//vasya
-// Hello from vasya
-
-const test1 = func.bind(user, "Ivanov");
-test1(); 
