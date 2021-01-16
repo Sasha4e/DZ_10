@@ -1,6 +1,12 @@
-function myBind(cb, ...args) {
-	return function() {
-		return cb.call(...args)
+// function myBind(cb, ...args) {
+// 	return function() {
+// 		return cb.call(...args)
+// 	}
+// }
+
+function myBind(cb, context, ...contextArgs) {
+	return function(...args) {
+		return cb.apply(context, [...contextArgs, ...args]);
 	}
 }
 
@@ -8,20 +14,20 @@ function myBind(cb, ...args) {
 
 const user = {
 	name: "Vasiliy",
-	sayhello() {
-		console.log(`Hello from ${this.lastName} ${this.name} ${this.middleName}`);
+	say(word) {
+		console.log(`${word} from ${this.lastName} ${this.name} ${this.middleName}`);
 	}
 };
 
 
-function func(lastName, middleName) {
+function func(lastName, middleName, word) {
 	this.middleName = middleName,
 	this.lastName = lastName,
-	this.sayhello();
+	this.say(word);
 }
 
 
 const test = myBind(func, user, "Ivanov", "Olegovich");
-test(); 
+test("Hello"); 
 
 //Hello from Ivanov Vasiliy Olegovich
