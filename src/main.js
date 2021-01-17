@@ -4,10 +4,10 @@
 // 	}
 // }
 
-function myBind(cb, obj, ...args) {
+function myBind(cb, context, ...args) {
 	return function(...contextArgs) {
 		const allArgs = [...args, ...contextArgs]
-		return cb.apply(obj, allArgs);
+		return cb.apply(context, allArgs);
 	}
 }
 
