@@ -5,8 +5,8 @@
 // }
 
 function myBind(cb, context, ...args) {
-	return function(...contextArgs) {
-		const allArgs = [...args, ...contextArgs]
+	return function(...dectArgs) {
+		const allArgs = [...args, ...dectArgs]
 		return cb.apply(context, allArgs);
 	}
 }
