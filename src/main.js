@@ -6,14 +6,14 @@
 задавать начальное значение и шаг счетчика при инициализации и метод для сброса к начальному значению. */
 
 //	#1
-function counter() {
+const counter = () => {
 		let count = 0;
-		return function(value) {
+		return (value) => {
 			return count += value;
 		}
 };
 
-let sum = counter();
+const sum = counter();
 
 console.log(sum(3)); //3
 console.log(sum(5)); //8
@@ -21,10 +21,10 @@ console.log(sum(20)); //28
 
 
 //	#2
-function makeCounter(value, step) {
+const makeCounter = (value, step) => {
 	let startCount = value;
-	let restCount = value;
-	return function(reset) {
+	const restCount = value;
+	return (reset) => {
 		if (reset === 'reset') {
 			startCount = restCount;
 			return startCount;
