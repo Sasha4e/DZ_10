@@ -1,34 +1,46 @@
-// function myBind(cb, ...args) {
-// 	return function() {
-// 		return cb.call(...args)
-// 	}
-// }
+/*Вам нужно, написать функцию, которая принимает 1 параметр. При первом вызове,
+она его запоминает, при втором — суммирует переданый параметр с тем,
+что передали первый раз и тд. Всё это с замыканиями, например: sum(3) = 3 sum(5) = 8 sum(20) = 28
 
-function myBind(cb, context, ...args) {
-	return function(...decArgs) {
-		const allArgs = [...args, ...decArgs]
-		return cb.apply(context, allArgs);
-	}
-}
+Это не все. Возьмите счетчик, который мы писали в классе и добавьте ему возможность
+задавать начальное значение и шаг счетчика при инициализации и метод для сброса к начальному значению. */
 
-//TEST:
-
-const user = {
-	name: "Vasiliy",
-	say(word) {
-		console.log(`${word} from ${this.lastName} ${this.name} ${this.middleName}`);
-	}
+//	#1
+function counter() {
+		let count = 0;
+		return function(value) {
+			return count += value;
+		}
 };
 
+let sum = counter();
 
-function func(lastName, middleName, word) {
-	this.middleName = middleName,
-	this.lastName = lastName,
-	this.say(word);
+console.log(sum(3)); //3
+console.log(sum(5)); //8
+console.log(sum(20)); //28 
+
+
+//	#2
+function makeCounter(value, step) {
+	let startCount = value;
+	return function(reset) {
+		if(reset === 'reset') {
+			startCount = 0;
+			step = 0;
+		}
+		return startCount += step;
+  	};
 }
 
+let testCounter = makeCounter(2, 4);
 
-const test = myBind(func, user, "Ivanov", "Olegovich");
-test("Hello"); 
+console.log(testCounter()); //6
+console.log(testCounter()); //10
+console.log(testCounter()); //14
+console.log(testCounter()); //18
+console.log(testCounter()); //22
+testCounter('reset');	
+console.log(testCounter()); //0
 
-//Hello from Ivanov Vasiliy Olegovich
+
+
