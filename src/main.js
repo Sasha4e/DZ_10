@@ -25,13 +25,14 @@ const makeCounter = (value, step) => {
 	let startCount = value;
 	const restCount = value;
 	return (reset) => {
+		
 		if (reset === 'reset') {
 			startCount = restCount;
 			return startCount;
 		}
 		
 		return startCount += step; 
-	  };
+	};
 	  
 }
 
