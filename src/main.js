@@ -23,13 +23,16 @@ console.log(sum(20)); //28
 //	#2
 function makeCounter(value, step) {
 	let startCount = value;
+	let restCount = value;
 	return function(reset) {
-		if(reset === 'reset') {
-			startCount = 0;
-			step = 0;
+		if (reset === 'reset') {
+			startCount = restCount;
+			return startCount;
 		}
-		return startCount += step;
-  	};
+		
+		return startCount += step; 
+	  };
+	  
 }
 
 let testCounter = makeCounter(2, 4);
@@ -39,8 +42,10 @@ console.log(testCounter()); //10
 console.log(testCounter()); //14
 console.log(testCounter()); //18
 console.log(testCounter()); //22
+console.log('-----------------');
 testCounter('reset');	
-console.log(testCounter()); //0
-
-
+console.log(testCounter()); //6
+console.log(testCounter()); //10
+console.log(testCounter()); //14
+console.log(testCounter()); //18
 
