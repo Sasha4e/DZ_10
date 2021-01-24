@@ -1,52 +1,25 @@
-/*Вам нужно, написать функцию, которая принимает 1 параметр. При первом вызове,
-она его запоминает, при втором — суммирует переданый параметр с тем,
-что передали первый раз и тд. Всё это с замыканиями, например: sum(3) = 3 sum(5) = 8 sum(20) = 28
+/* Палиндром можно получить как результат операций над другими числами.
+Возьмём любое натуральное число и сложим его с обращённым числом, то есть записанным теми же цифрами,
+но в обратном порядке. Проделаем то же действие с получившейся суммой и будем повторять его до тех пор,
+пока не образуется палиндром. Иногда достаточно сделать всего один шаг (например, 312 + 213 = 525),
+но, как правило, требуется не менее двух. Скажем, число 96 порождает палиндром 4884 только на четвёртом шаге....
 
-Это не все. Возьмите счетчик, который мы писали в классе и добавьте ему возможность
-задавать начальное значение и шаг счетчика при инициализации и метод для сброса к начальному значению. */
+В результате я хочу, чтоб вы написали функцию, которая будет возвращать объект где будет свойство result -
+и это будет палиндром и свойство step - это число вызовов до нахождения палиндрома */
 
-//	#1
-const counter = () => {
-		let count = 0;
-		return (value) => {
-			return count += value;
-		}
-};
+const reverse = (number) => Number(String(number).split('').reverse().join(''));
 
-const sum = counter();
+const palindrome = (number, step = 0) => {
+    const reverseNumber = reverse(number);
 
-console.log(sum(3)); //3
-console.log(sum(5)); //8
-console.log(sum(20)); //28 
-
-
-//	#2
-const makeCounter = (value, step) => {
-	let startCount = value;
-	const restCount = value;
-	return (reset) => {
-		
-		if (reset === 'reset') {
-			startCount = restCount;
-			return startCount;
-		}
-		
-		return startCount += step; 
-	};
-	  
+    if (number === reverseNumber) {
+        return { result: number, step };
+    } else { 
+        return palindrome(number += reverseNumber, ++step) 
+    }
 }
 
-let testCounter = makeCounter(2, 4);
+// TEST:
 
-console.log(testCounter()); //6
-console.log(testCounter()); //10
-console.log(testCounter()); //14
-console.log(testCounter()); //18
-console.log(testCounter()); //22
-console.log('-----------------');
-testCounter('reset');	
-console.log(testCounter()); //6
-console.log(testCounter()); //10
-console.log(testCounter()); //14
-console.log(testCounter()); //18
-
+console.log(palindrome(11)); //0
+console.log(palindrome(96)); //4
