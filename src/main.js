@@ -11,15 +11,12 @@ const reverse = (number) => Number(String(number).split('').reverse().join(''));
 
 const palindrome = (number, step = 0) => {
     const reverseNumber = reverse(number);
-
-    if (number === reverseNumber) {
-        return { result: number, step };
-    } else { 
-        return palindrome(number += reverseNumber, ++step) 
-    }
+    return (number === reverseNumber) ? { result: number, step } : palindrome(number += reverseNumber, ++step) 
 }
+
 
 // TEST:
 
 console.log(palindrome(11)); //0
 console.log(palindrome(96)); //4
+
